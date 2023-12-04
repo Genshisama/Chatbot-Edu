@@ -15,7 +15,7 @@ chat_messages = []
 
 @app.route('/')
 def chatbot_interface():
-    initial_prompt = "Hello"
+    initial_prompt = "Welcome! Ask me anything about historical facts, and I'll do my best to provide you with detailed and accurate information. Feel free to start the conversation with a historical question."
     return render_template('chatbot.html', chat_messages = chat_messages, initial_prompt = initial_prompt)
 
 @app.route('/send_message',methods=['POST'])
