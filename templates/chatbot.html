@@ -1,46 +1,107 @@
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Interface</title>
-    <link rel="stylesheet" href="static\style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatBox Edu</title>
+    <link rel="stylesheet" href="static\style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-eZJFVEjqSs6o9L1wWwkgUwOPg0RvbYo1aMktc+ZAZtb60RURCTUKqPl+HhQilYIdjMqyNVh83wLrxs5P4P4t8A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
     <div class="container">
-        <div id="chat-display" class="chat-display">
-            {% if initial_prompt %}
-                {{initial_prompt}}
-            {% endif %}
+      <header>
+        <h2>ChatBox Edu 🧑‍🏫</h2>
+      </header>
 
-            {% for message in chat_messages %}
-                {{ message }}
-            {% endfor %}
+      <div id="chat-display" class="chat-display">
+        <div class="initial-prompt">
+          {% if initial_prompt %} {{initial_prompt}} {% endif %}
+        </div>
+        {% for message in chat_messages %} {{ message }} {% endfor %}
+      </div>
 
-        </div>
-        <div class="user-input">
-            <input type="text" id="user-input" placeholder="Type your message...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+      <div class="user-input">
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <button onclick="sendMessage()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#fff"
+            fill-rule="evenodd"
+            stroke-linejoin="round"
+            stroke-miterlimit="2"
+            clip-rule="evenodd"
+            viewBox="0 0 64 65"
+            id="send"
+            width="24"
+            height="24"
+          >
+            <g transform="translate(0 .483)">
+              <rect width="64" height="64" fill="none"></rect>
+              <path
+                d="M34.205,133.255L34.256,140.42C34.266,141.951 32.419,143.199 30.134,143.207C27.848,143.214 25.984,141.977 25.973,140.446L25.876,126.782C25.869,125.671 26.851,124.664 28.374,124.223C29.897,123.782 31.666,123.993 32.869,124.757L70.212,148.496C71.87,149.55 71.939,151.306 70.365,152.417C68.791,153.527 66.168,153.573 64.51,152.519L34.205,133.255Z"
+                transform="rotate(-135.001 10.8 61.445) scale(.35213 .52583)"
+              ></path>
+              <path
+                d="M34.785,110.282L36.85,109.401C37.497,109.125 37.798,108.375 37.522,107.729C37.246,107.082 36.496,106.781 35.85,107.058L33.785,107.939C33.138,108.215 32.837,108.965 33.113,109.611C33.39,110.258 34.139,110.559 34.785,110.282Z"
+                transform="translate(-9.613 -109.087) scale(1.14477)"
+              ></path>
+              <path
+                d="M60.139,99.456L41.241,107.526C40.594,107.802 39.845,107.501 39.569,106.855C39.293,106.208 39.593,105.459 40.24,105.183L62.056,95.867C62.534,95.663 63.089,95.77 63.457,96.138C63.825,96.506 63.932,97.06 63.728,97.539L41.347,149.951C41.181,150.34 40.832,150.621 40.417,150.702C40.002,150.782 39.574,150.651 39.274,150.352L27.381,138.459C26.938,138.015 26.883,137.315 27.252,136.808L40.952,117.973L21.494,131.112C20.988,131.454 20.312,131.389 19.88,130.958L9.243,120.32C8.944,120.021 8.813,119.593 8.893,119.178C8.974,118.763 9.255,118.414 9.644,118.248L28.74,110.094C29.386,109.818 30.135,110.118 30.411,110.765C30.687,111.412 30.387,112.161 29.74,112.437L12.377,119.851L20.939,128.413L45.532,111.806C46.045,111.46 46.732,111.532 47.162,111.977C47.591,112.422 47.639,113.111 47.275,113.611L29.953,137.427L39.744,147.218L60.139,99.456Z"
+                transform="translate(-9.613 -109.087) scale(1.14477)"
+              ></path>
+            </g>
+          </svg>
+        </button>
+      </div>
     </div>
+    <footer>
+      <p>&copy; ChatBox Edu v1.0 | &copy; 2023. All rights reserved.</p>
+    </footer>
 
     <script>
-        function sendMessage(){
-            var userInput = document.getElementById('user-input').value;
-            document.getElementById('chat-display').innerHTML += `<div class="message"><strong>You:</strong> ${userInput}</div>`;
-            document.getElementById('user-input').value='';
+      function sendMessage() {
+        var userInput = document.getElementById("user-input").value;
+        document.getElementById(
+          "chat-display"
+        ).innerHTML += `<div class="message"><strong>👤  </strong> ${userInput}</div>`;
+        document.getElementById("user-input").value = "";
 
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST','/send_message',true);
-            xhr.setRequestHeader('Content-Type','application/json');
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState == 4 && xhr.status == 200){
-                    var chatbotResponse = JSON.parse(xhr.responseText).response;
-                    document.getElementById('chat-display').innerHTML += `<div class="message chatbot-message"><strong>Assistant:</strong> ${chatbotResponse}</div>`;
-                }
-            };
-            xhr.send(JSON.stringify({user_input: userInput}));
-        }
+        const chatDisplay = document.getElementById("chat-display");
+
+        // Replace "Thinking..." with a loading animation of three dots
+        chatDisplay.innerHTML += `<div class="message-chatbot-message"><strong>🤖  </strong> <span class="loading-dots"></span></div>`;
+        chatDisplay.scrollTo(0, chatDisplay.scrollHeight);
+
+        setTimeout(() => {
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "/send_message", true);
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              chatDisplay.removeChild(chatDisplay.lastChild);
+
+              var chatbotResponse = JSON.parse(xhr.responseText).response;
+              chatDisplay.innerHTML += `<div class="message-chatbot-message"><strong>🤖  </strong> ${chatbotResponse}</div>`;
+              chatDisplay.scrollTo(0, chatDisplay.scrollHeight);
+            }
+          };
+          xhr.send(JSON.stringify({ user_input: userInput }));
+        }, 600);
+      }
     </script>
-</body>
+  </body>
 </html>

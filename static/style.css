@@ -1,22 +1,178 @@
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #ffffff;
-    margin: 0;
-    padding: 0;
+body,
+html {
+  height: 100%;
+  margin: 0;
+  background: rgb(44, 47, 59);
+  background: -webkit-linear-gradient(
+    to right,
+    rgb(40, 59, 34),
+    rgb(54, 60, 70),
+    rgb(32, 32, 43)
+  );
+  background: linear-gradient(
+    to right,
+    rgb(38, 51, 61),
+    rgb(50, 55, 65),
+    rgb(33, 33, 78)
+  );
 }
 
-.container{
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.chat {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
-h1{
-    color: #333;
+.container {
+  position: fixed;
+  right: 400px;
+  left: 400px;
+  padding: 20px;
+  bottom: 100px;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 32px 64px -48px rgba(0, 0, 0, 0.5);
 }
 
-p{
-    color: #666;
+.chat-display {
+  height: 510px;
+  overflow: auto;
+  padding: 15px 20px 70px;
+  margin-bottom: 60px;
+  border-radius: 10px 10px 0 10px;
+  background: #e0e0e0;
+  color: #333;
+}
+
+.message {
+  max-width: 50%;
+  padding: 12px 16px;
+  background: #4285f4;
+  display: flex;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-right: 30px;
+  color: #fff;
+  justify-content: flex-end;
+  border-radius: 25px;
+}
+
+.message-chatbot-message,
+.initial-prompt {
+  max-width: 50%;
+  padding: 12px 16px;
+  background: #00b4d8;
+  display: flex;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.message-chatbot-message,
+.initial-prompt {
+  color: #ffffff;
+  justify-content: flex-start;
+  border-radius: 25px;
+}
+
+.initial-prompt {
+  margin-left: 30px; /* Adjusted to move chatbot messages to the left */
+  margin-right: auto;
+}
+.message-chatbot-message {
+  margin-left: 30px; /* Adjusted to move chatbot messages to the left */
+  margin-right: auto;
+}
+
+.user-input {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1),
+    0 32px 64px -48px rgba(0, 0, 0, 0.5);
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 8px;
+  font-size: 1.2em;
+  background-color: #4285f4;
+  color: #fff;
+}
+
+.loading-dots {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  font-size: 2.5em;
+}
+
+.loading-dots::before {
+  margin-left: 15px;
+  content: "\00b7 \00b7 \00b7";
+  animation: loading-dots 1.5s infinite ease-in-out;
+}
+
+@keyframes loading-dots {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  20%,
+  80% {
+    opacity: 0.5;
+  }
+  40%,
+  60% {
+    opacity: 0.9;
+  }
+}
+
+header h2 {
+  font-size: 30px;
+  padding-bottom: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0;
+  letter-spacing: 4px;
+  animation: typing 2s steps(30, end);
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Optional: Add some additional styling to the paragraph within the footer */
+footer p {
+  margin: 0;
+  font-size: 14px;
 }
