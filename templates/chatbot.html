@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="static\style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="chatbot-name">
+        <div class="chatbot-title">
+          Chrono<br/>Bot
+        </div>
+        <div class="info">
+          &copy; ChronoBot v1.0|<br/>
+          2023. All rights reserved.
+        </div>
+      </div>
+      <div class="chatbot-display">
+        <div class="chatbot-field">
+          <div id="chatbot-conv" class="chatbot-conv">
+            <div class="chatbot-chat">
+              <div><i class="small material-icons" style="color: #DEA93D;">blur_on</i></div>
+              <div class="chatbot-bubble">
+                <div id="chat-display" class="chat-display">
+                  {% if initial_prompt %}
+                      {{initial_prompt}}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+              {% for message in chat_messages %}
+                  {{ message }}
+              {% endfor %}
+          </div>
+          <div class="chatbot-input">
+            <div class="user-input">
+              <input type="text" id="user-input" placeholder="Type your message...">
+            </div>
+            <div class="input-button">
+              <button onclick="sendMessage()"><i class="small material-icons">send</i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function sendMessage() {
+        var userInput = document.getElementById("user-input").value;
+        document.getElementById("chatbot-conv").innerHTML +=
+        `<div class="user-chat">
+          <div class="user-bubble">
+            ${userInput}
+          </div>
+          <div><i class="small material-icons" style="color: #F0DFC3;">face</i></div>
+        </div>`;
+        document.getElementById("user-input").value = "";
+    
+        const chatDisplay = document.getElementById("chatbot-conv");
+    
+        // Replace "Thinking..." with a loading animation of three dots
+        chatDisplay.innerHTML += `
+        <div class="chatbot-chat">
+          <div><i class="small material-icons" style="color: #DEA93D;">blur_on</i></div>
+          <div class="chatbot-bubble">
+            <div id="chat-display" class="chat-display">
+              <span class="loading-dots">
+            </div>
+          </div>
+        </div>`;
+        chatDisplay.scrollTo(0, chatDisplay.scrollHeight);
+    
+        setTimeout(() => {
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "/send_message", true);
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              chatDisplay.removeChild(chatDisplay.lastChild);
+    
+              var chatbotResponse = JSON.parse(xhr.responseText).response;
+              chatDisplay.innerHTML += `
+              <div class="chatbot-chat">
+                <div><i class="small material-icons" style="color: #DEA93D;">blur_on</i></div>
+                <div class="chatbot-bubble">
+                  <div id="chat-display" class="chat-display">
+                    ${chatbotResponse}
+                  </div>
+                </div>
+              </div>`;
+              chatDisplay.scrollTo(0, chatDisplay.scrollHeight);
+            }
+          };
+          xhr.send(JSON.stringify({ user_input: userInput }));
+        }, 600);
+      }
+    
+      // Add event listener for the Enter key
+      document.getElementById("user-input").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // Prevents the default Enter key behavior (e.g., adding a newline)
+          sendMessage();
+        }
+      });
+    </script>
+  </body>
+</html>
