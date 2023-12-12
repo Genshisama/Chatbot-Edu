@@ -48,21 +48,24 @@
 
     <script>
       function sendMessage() {
+        var userTime = new Date().toLocaleTimeString();
         var userInput = document.getElementById("user-input").value;
         document.getElementById("chatbot-conv").innerHTML +=
         `<div class="user-chat">
           <div class="user-bubble">
             ${userInput}
+            <div class="user-time">
+              ${userTime}
+            </div>
           </div>
           <div><i class="small material-icons" style="color: #F0DFC3;">face</i></div>
         </div>`;
         document.getElementById("user-input").value = "";
     
         const chatDisplay = document.getElementById("chatbot-conv");
-    
-        // Replace "Thinking..." with a loading animation of three dots
-        chatDisplay.innerHTML += `
-        <div class="chatbot-chat">
+        
+        chatDisplay.innerHTML += 
+        `<div class="chatbot-chat">
           <div><i class="small material-icons" style="color: #DEA93D;">blur_on</i></div>
           <div class="chatbot-bubble">
             <div id="chat-display" class="chat-display">
@@ -79,7 +82,7 @@
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
               chatDisplay.removeChild(chatDisplay.lastChild);
-    
+              var chatbotTime = new Date().toLocaleTimeString();
               var chatbotResponse = JSON.parse(xhr.responseText).response;
               chatDisplay.innerHTML += `
               <div class="chatbot-chat">
@@ -87,6 +90,9 @@
                 <div class="chatbot-bubble">
                   <div id="chat-display" class="chat-display">
                     ${chatbotResponse}
+                  </div>
+                  <div class="chatbot-time">
+                    ${chatbotTime}
                   </div>
                 </div>
               </div>`;
