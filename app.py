@@ -94,7 +94,7 @@ def rate_limited_assistant(prompt):
                 break
             
             messages[-1]["content"] = f"You: {current_response}\nAssistant:"
-            
+            print(messages)
     except Exception as e:
         print(f"Error during API request: {e}")
         
