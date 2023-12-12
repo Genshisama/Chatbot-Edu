@@ -29,8 +29,8 @@ def send_message():
     
     time.sleep(1)
     
-    chat_messages.append(f"<div class='message user-message'><strong>You:</strong> {user_input} </div>")
-    chat_messages.append(f"<div class='message user-message'><strong>Assistant:</strong> {chatbot_response} </div>")
+    chat_messages.append(f"<div class='user-bubble'>${user_input}</div>")
+    chat_messages.append(f"<div id='chat-display' class='chat-display'>${chatbot_response}</div>")
 
     
     return jsonify({'response': chatbot_response})
@@ -94,9 +94,10 @@ def rate_limited_assistant(prompt):
                 break
             
             messages[-1]["content"] = f"You: {current_response}\nAssistant:"
-            print(messages)
+            
     except Exception as e:
         print(f"Error during API request: {e}")
+        response_text = "Sorry! Seems like our server is busy. Try again in few minutes."
         
     return response_text
 

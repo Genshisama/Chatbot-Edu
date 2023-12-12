@@ -48,8 +48,8 @@
 
     <script>
       function sendMessage() {
-        var userTime = new Date().toLocaleTimeString();
-        var userInput = document.getElementById("user-input").value;
+        var userTime = "&nbsp" + new Date().toLocaleTimeString();
+        var userInput ="&nbsp" + document.getElementById("user-input").value;
         document.getElementById("chatbot-conv").innerHTML +=
         `<div class="user-chat">
           <div class="user-bubble">
