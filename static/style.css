@@ -18,10 +18,8 @@
     height: 100vh;
     font-family: 'Courier New', Courier, monospace;
     background-color: #7F6765;
-    background-color: #7F6765;
-    background-color: #7F6765;
     opacity: 1;
-    background-size: 40px 40px;
+    background-size: 5vh 5vh;
     background-image: repeating-linear-gradient(45deg, rgba(240,223,195,0.3) 0, rgba(240,223,195,0.3) 4px, #7F6765 0, #7F6765 50%);
   }
   .container{
@@ -41,9 +39,15 @@
     justify-content: center;
     margin-top: 2rem;
     margin-left: 1rem;
+    margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
     align-items: start;
+    background-color: rgba(166, 122, 94, 0.89);
+    opacity: 1;
+    background-image:  radial-gradient(rgba(222, 168, 60, 0.2) 2px, transparent 2px), radial-gradient(rgba(222, 168, 60, 0.2) 2px, rgba(166, 122, 94, 0.89) 2px);
+    background-size: 10vh 10vh;
+    background-position: 0 0,40px 40px;
   }
   
   .chatbot-display{
@@ -213,3 +217,12 @@
     font-size: 0.75rem;
   }
   
+  .restart{
+    align-self: center;
+  }
+
+  .restart button{
+    border-radius: 0.5rem;
+    background: var(--first-color);
+    padding: 1rem;
+  }

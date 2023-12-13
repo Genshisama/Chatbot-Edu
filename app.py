@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, jsonify
 import time
 import openai
 import json
+import os
+import sys
 
 with open('config.json') as config_file:
     config_data = json.load(config_file)
@@ -35,6 +37,11 @@ def send_message():
     
     return jsonify({'response': chatbot_response})
     
+@app.route('/restart')
+def restart():
+    python = sys.executable
+    os.execl(python, python, *sys.argv)
+
 def rate_limited_assistant(prompt):
     global last_request_time
     elapsed_time = time.time() - last_request_time

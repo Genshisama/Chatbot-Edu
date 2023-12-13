@@ -12,6 +12,9 @@
         <div class="chatbot-title">
           Chrono<br/>Bot
         </div>
+        <div class="restart">
+            <button onclick="restartPage()">New Chat</button>
+        </div>
         <div class="info">
           &copy; ChronoBot v1.0|<br/>
           2023. All rights reserved.
@@ -103,13 +106,17 @@
         }, 600);
       }
     
-      // Add event listener for the Enter key
       document.getElementById("user-input").addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
-          event.preventDefault(); // Prevents the default Enter key behavior (e.g., adding a newline)
+          event.preventDefault();
           sendMessage();
         }
       });
+
+      function restartPage(){
+        fetch('/restart');
+        location.reload();
+      }
     </script>
   </body>
 </html>
