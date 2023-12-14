@@ -15,6 +15,31 @@ app = Flask(__name__)
 
 chat_messages = []
 
+messages = [
+    {
+        "role": "system", "content": """
+            You are a historical facts expert, well-versed in various historical events and figures. 
+            You can provide detailed and accurate answers to history-related questions. 
+            If the query is related to a different subject (e.g., math, science, literature), clearly state that you are focused on history and unable to assist with inquiries outside this field. 
+            If the question pertains to an unrelated topic, kindly express that it falls outside your field of expertise. 
+            If the user asks who or what you are, say you are a historical expert.
+            Answer briefly unless asked for explanation.
+            If the user asks for explanation or details, refer to previous messages made by the user.
+            Greet the user in a brief manner.
+        """
+    },
+    {
+        "role": "user", "content": """
+            You are a user seeking information from a historical facts expert. 
+            Feel free to ask any history-related questions, and the expert will provide you with accurate information.
+        """
+    },
+    {   
+        "role": "assistant", "content": "Yes, I understand. Please go ahead and ask any historical question, and I'll do my best to provide you with detailed and accurate information."
+    }
+]
+
+
 @app.route('/')
 def chatbot_interface():
     initial_prompt = "Welcome! Ask me anything about historical facts, and I'll do my best to provide you with detailed and accurate information. Feel free to start the conversation with a historical question."
@@ -27,12 +52,12 @@ def send_message():
     if not user_input:
         return jsonify({'response': "Sorry but it seems like you forgot to input your inquiry. Please try again."})
         
-    chatbot_response = rate_limited_assistant(f"You: {user_input}\nAssistant:")
+    chatbot_response = rate_limited_assistant(f"{user_input}")
     
     time.sleep(1)
     
-    chat_messages.append(f"<div class='user-bubble'>${user_input}</div>")
-    chat_messages.append(f"<div id='chat-display' class='chat-display'>${chatbot_response}</div>")
+    chat_messages.append(f"${user_input}")
+    chat_messages.append(f"${chatbot_response}")
 
     
     return jsonify({'response': chatbot_response})
@@ -52,42 +77,24 @@ def rate_limited_assistant(prompt):
     last_request_time = time.time()
     
     openai.api_key = api_key
-    
+
     response_text = ""
 
-    messages = [
-        {
-            "role": "system", "content": """
-                You are a historical facts expert, well-versed in various historical events and figures. 
-                You can provide detailed and accurate answers to history-related questions. 
-                If the query is related to a different subject (e.g., math, science, literature), clearly state that you are focused on history and unable to assist with inquiries outside this field. 
-                If the question pertains to an unrelated topic, kindly express that it falls outside your field of expertise. 
-                If the user asks who or what you are, say you are a historical expert.
-                Answer briefly unless asked for explanation.
-                Greet user in brief manner.
-            """
-        },
-        {
-            "role": "user", "content": """
-                You are a user seeking information from a historical facts expert. 
-                Feel free to ask any history-related questions, and the expert will provide you with accurate information.
-            """
-        },
-        {"role": "assistant", "content": "Yes, I understand. Please go ahead and ask any historical question, and I'll do my best to provide you with detailed and accurate information."}
-    ]
-    
     try:
         while True:
+            
             message = prompt
+            
             if message:
                 messages.append(
                     {"role": "user", "content": message},
                 )
+
             response = openai.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-3.5-turbo-1106",
                 messages=messages,
                 temperature=0.7,
-                max_tokens=150,
+                max_tokens=250,
                 top_p=1.0,
                 frequency_penalty=0,
                 presence_penalty=0
@@ -95,18 +102,20 @@ def rate_limited_assistant(prompt):
             
             current_response = response.choices[0].message.content
             
+            messages.append(
+                    {"role": "assistant", "content": current_response},
+                )
+            
             response_text += current_response
             
             if '.' in current_response or len(response_text.split()) >= 50:
                 break
             
-            messages[-1]["content"] = f"You: {current_response}\nAssistant:"
-            
     except Exception as e:
         print(f"Error during API request: {e}")
-        response_text = "Sorry! Seems like our server is busy. Try again in few minutes."
         
-    return response_text
+        
+    return response_text 
 
 
 if __name__ == '__main__':

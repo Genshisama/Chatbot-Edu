@@ -7,6 +7,7 @@
   }
   *{
     font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
   }
   body{
     margin: 0;
@@ -16,7 +17,6 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    font-family: 'Courier New', Courier, monospace;
     background-color: #7F6765;
     opacity: 1;
     background-size: 5vh 5vh;
@@ -79,6 +79,7 @@
   .info{
     margin-top: auto;
     margin-bottom: 2rem;
+    font-size: 1rem;
   }
   .chatbot-field{
     margin: 2.5vh;
@@ -225,4 +226,5 @@
     border-radius: 0.5rem;
     background: var(--first-color);
     padding: 1rem;
+    font-weight: 900;
   }
