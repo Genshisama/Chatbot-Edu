@@ -113,7 +113,7 @@ def rate_limited_assistant(prompt):
             
     except Exception as e:
         print(f"Error during API request: {e}")
-        
+        response_text = "Sorry! Seems like our server is busy. Try again in few minutes."
         
     return response_text 
 
